@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forslag 3 · "Det får du" · TantraUddannelsen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1d1f25; --terra:#c26148; --terra-dark:#a5462c; --cream:#f7f6f5;
+    --sand:#ebe8e6; --gold:#fcb900; --white:#fff; --muted:#6b6660;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Figtree',sans-serif;color:var(--ink);background:var(--white);line-height:1.55}
+  h1,h2,h3{font-family:'Lora',serif;font-weight:600;line-height:1.15}
+  img{display:block;max-width:100%}
+
+  .demobar{position:sticky;top:0;z-index:60;background:var(--ink);color:#fff;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:center;padding:.5rem 1rem;font-size:.8rem}
+  .demobar b{color:var(--gold)}
+  .demobar a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.35);border-radius:99px;padding:.15rem .7rem}
+  .demobar a:hover{background:rgba(255,255,255,.15)}
+  .demobar a.on{background:var(--terra);border-color:var(--terra)}
+
+  .gate{position:fixed;inset:0;z-index:100;background:var(--cream);display:flex;align-items:center;justify-content:center;padding:1.5rem}
+  .gate-box{background:#fff;border:1px solid var(--sand);border-radius:18px;max-width:400px;width:100%;padding:2.5rem;text-align:center;box-shadow:0 24px 60px rgba(29,31,37,.12)}
+  .gate-box .kicker{color:var(--terra);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;margin-bottom:.6rem}
+  .gate-box h2{font-size:1.6rem;margin-bottom:.5rem}
+  .gate-box p{color:var(--muted);font-size:.9rem;margin-bottom:1.4rem}
+  .gate-box input{width:100%;padding:.75rem 1rem;border:1.5px solid var(--sand);border-radius:10px;font-size:1rem;font-family:inherit;margin-bottom:.8rem;text-align:center}
+  .gate-box input:focus{outline:none;border-color:var(--terra)}
+  .gate-box button{width:100%;padding:.8rem;background:var(--terra);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;font-family:inherit;cursor:pointer}
+  .gate-box button:hover{background:var(--terra-dark)}
+  .gate-err{color:var(--terra-dark);font-size:.85rem;min-height:1.2em;margin-bottom:.4rem}
+  .gate-hint{font-size:.75rem;color:var(--muted);margin-top:1rem}
+
+  .sitehead{border-bottom:1px solid var(--sand);padding:1.1rem clamp(1rem,5vw,3rem);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+  .logo{font-family:'Lora',serif;font-size:1.15rem;font-weight:600}
+  .logo span{color:var(--terra)}
+  .sitenav{display:flex;gap:1.4rem;font-size:.9rem;font-weight:500;flex-wrap:wrap}
+  .sitenav a{color:var(--ink);text-decoration:none;opacity:.75}
+  .sitenav a:hover{opacity:1;color:var(--terra)}
+  .btn{display:inline-block;background:var(--terra);color:#fff!important;text-decoration:none;padding:.55rem 1.2rem;border-radius:6px;font-weight:600;font-size:.9rem}
+  .btn:hover{background:var(--terra-dark)}
+
+  /* ===== BLOKKEN ===== */
+  .detfardu{background:linear-gradient(180deg,var(--cream) 0%,#fdfcfa 100%);padding:clamp(3rem,7vw,5.5rem) clamp(1rem,5vw,3rem)}
+  .dfd-inner{max-width:1180px;margin:0 auto}
+  .dfd-head{max-width:680px;margin-bottom:2.6rem}
+  .kicker{color:var(--terra);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;margin-bottom:.7rem}
+  .dfd-head h2{font-size:clamp(2.2rem,5vw,3.2rem)}
+  .dfd-head p{color:var(--muted);font-size:1.08rem;margin-top:.8rem}
+
+  .journey{display:grid;grid-template-columns:1fr 1.35fr;gap:2rem;align-items:start}
+
+  .steps{display:flex;flex-direction:column;gap:0}
+  .step{display:flex;gap:1rem;padding:1.1rem 1.2rem;cursor:pointer;border:none;background:transparent;text-align:left;font-family:inherit;border-left:3px solid var(--sand);transition:all .2s ease;position:relative}
+  .step .dot{flex-shrink:0;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:1.3rem;background:#fff;border:2px solid var(--sand);transition:all .25s ease}
+  .step b{display:block;font-family:'Lora',serif;font-size:1.08rem;font-weight:600}
+  .step span{font-size:.82rem;color:var(--muted)}
+  .step:hover .dot{border-color:var(--terra)}
+  .step.active{background:#fff;border-left-color:var(--terra);border-radius:0 14px 14px 0;box-shadow:0 6px 24px rgba(29,31,37,.07)}
+  .step.active .dot{background:var(--terra);border-color:var(--terra)}
+  .step:last-child{border-left-color:transparent;border-left-style:solid;border-bottom-left-radius:0}
+  .steps::before{content:""}
+
+  .panels{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 10px 40px rgba(29,31,37,.08);border:1px solid rgba(235,232,230,.8)}
+  .panel{display:none}
+  .panel.active{display:block;animation:fadein .4s ease}
+  @keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .p-img{height:190px;overflow:hidden;position:relative}
+  .p-img img{width:100%;height:100%;object-fit:cover}
+  .p-img .tag{position:absolute;top:1rem;left:1rem;background:var(--terra);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:99px}
+  .p-body{padding:1.8rem}
+  .p-body h3{font-size:1.35rem;margin-bottom:1.2rem}
+  .gain{display:flex;gap:.9rem;padding:.75rem 0;border-bottom:1px dashed var(--sand)}
+  .gain:last-of-type{border-bottom:none}
+  .gain .g-emoji{font-size:1.2rem;flex-shrink:0;width:36px;height:36px;display:grid;place-items:center;background:rgba(194,97,72,.1);border-radius:10px}
+  .gain b{display:block;font-size:.98rem}
+  .gain p{font-size:.9rem;color:var(--muted)}
+  .quote{margin-top:1.4rem;background:var(--cream);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:1.1rem 1.3rem;font-family:'Lora',serif;font-style:italic;font-size:1.02rem}
+  .quote footer{font-family:'Figtree',sans-serif;font-style:normal;font-size:.82rem;color:var(--muted);margin-top:.5rem}
+  .mods{margin-top:1.2rem;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--terra)}
+  .mods span{display:inline-block;background:rgba(194,97,72,.12);border-radius:99px;padding:.25rem .7rem;margin:0 .35rem .35rem 0;letter-spacing:.03em}
+
+  .result{margin-top:2rem;background:var(--ink);color:#fff;border-radius:20px;padding:2rem;display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;justify-content:space-between}
+  .result .rtext{max-width:420px}
+  .result h3{font-size:1.4rem;color:#fff;margin-bottom:.5rem}
+  .result h3 span{color:var(--gold)}
+  .result p{opacity:.8;font-size:.95rem}
+  .stats{display:flex;gap:2.2rem;flex-wrap:wrap}
+  .stat b{display:block;font-family:'Lora',serif;font-size:2.2rem;color:var(--gold);line-height:1}
+  .stat span{font-size:.82rem;opacity:.8}
+
+  .after{padding:3rem clamp(1rem,5vw,3rem);text-align:center;background:#fff}
+  .after h3{font-size:1.5rem;margin-bottom:.6rem}
+  .after p{color:var(--muted);max-width:520px;margin:0 auto 1.4rem}
+  .foot{border-top:1px solid var(--sand);padding:1.4rem;text-align:center;font-size:.8rem;color:var(--muted)}
+
+  @media(max-width:900px){
+    .journey{grid-template-columns:1fr}
+    .steps{flex-direction:row;overflow-x:auto;padding-bottom:.4rem}
+    .step{flex-direction:column;align-items:center;text-align:center;border-left:none;border-bottom:3px solid var(--sand);border-radius:0;min-width:150px}
+    .step.active{border-radius:14px 14px 0 0;box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <div class="kicker">Demo</div>
+    <h2>Forslag 3: "Det får du"</h2>
+    <p>Denne demo af det nye forside-element er beskyttet med adgangskode.</p>
+    <form id="gateForm">
+      <input type="password" id="gatePass" placeholder="Adgangskode" autocomplete="off">
+      <div class="gate-err" id="gateErr"></div>
+      <button type="submit">Kom ind</button>
+    </form>
+    <div class="gate-hint">TantraUddannelsen · internt demo-site</div>
+  </div>
+</div>
+
+<div class="demobar">
+  <b>DEMO</b> <span>Forslag 3/3 – Dit år i forvandling</span>
+  <a href="https://thomaslindvig2014-lab.github.io/tantra-detfardu-forslag1/">1</a>
+  <a href="https://thomaslindvig2014-lab.github.io/tantra-detfardu-forslag2/">2</a>
+  <a href="https://thomaslindvig2014-lab.github.io/tantra-detfardu-forslag3/" class="on">3</a>
+</div>
+
+<header class="sitehead">
+  <div class="logo">Tantra<span>Uddannelsen</span></div>
+  <nav class="sitenav">
+    <a href="#">Hvad er tantra</a><a href="#">Uddannelsens indhold</a><a href="#">Priser</a><a href="#">Datoer</a><a href="#">Kontakt</a>
+  </nav>
+  <a href="#" class="btn">Tilmeld dig</a>
+</header>
+
+<section class="detfardu">
+  <div class="dfd-inner">
+    <div class="dfd-head">
+      <div class="kicker">Hvad du personligt går derfra med</div>
+      <h2>Det får du</h2>
+      <p>Uddannelsen er bygget op i fire forløb, der bygger på hinanden. Klik dig igennem dit år – og se, hvad der sker med dig undervejs.</p>
+    </div>
+
+    <div class="journey">
+      <div class="steps">
+        <button class="step active" data-step="1">
+          <span class="dot">🌱</span>
+          <span><b>Du lander sikkert</b><span>Modul 1–2</span></span>
+        </button>
+        <button class="step" data-step="2">
+          <span class="dot">🌊</span>
+          <span><b>Gamle mønstre vælter</b><span>Modul 3–4</span></span>
+        </button>
+        <button class="step" data-step="3">
+          <span class="dot">🔥</span>
+          <span><b>Lysten vender tilbage</b><span>Modul 5–6</span></span>
+        </button>
+        <button class="step" data-step="4">
+          <span class="dot">💎</span>
+          <span><b>Du står ved det, du er</b><span>Modul 7–8</span></span>
+        </button>
+      </div>
+
+      <div class="panels">
+        <div class="panel active" data-panel="1">
+          <div class="p-img"><img src="assets/img/eva2full.jpg" alt="Deltager i refleksion"><span class="tag">Start</span></div>
+          <div class="p-body">
+            <h3>En tryg ramme – og kontakt til din egen kraft</h3>
+            <div class="gain"><div class="g-emoji">🧭</div><div><b>Du forstår, hvad tantra er</b><p>Kernebegreberne og den tantriske ramme giver dig fast grund at stå på.</p></div></div>
+            <div class="gain"><div class="g-emoji">⚡</div><div><b>Du kan skabe energimæssig bevægelse</b><p>Du ved, hvordan du inviterer proces fremfor at vente på, at noget skal ske.</p></div></div>
+            <div class="gain"><div class="g-emoji">🐆</div><div><b>Du har mødt din rå kraft</b><p>Seksualitet og aggression hører med – og bliver ressourcer i stedet for fjender.</p></div></div>
+            <div class="quote">“TantraUddannelsen har givet mig værktøjer til at undgå stress og andre uhensigtsmæssige tilstande.”<footer>– Christina, tidligere elev</footer></div>
+            <div class="mods">Moduler: <span>1 · Tantrisk proces</span><span>2 · At arbejde nedad</span></div>
+          </div>
+        </div>
+
+        <div class="panel" data-panel="2">
+          <div class="p-img"><img src="assets/img/eva8.jpg" alt="To deltagere i øvelse"><span class="tag">Forvandling</span></div>
+          <div class="p-body">
+            <h3>Nye øjne på sex, kærlighed og relationer</h3>
+            <div class="gain"><div class="g-emoji">🧩</div><div><b>Du forstår seksualitetens kors</b><p>Et kort over, hvordan du selv og du partner fungerer – og hvorfor I tenderer forskelligt.</p></div></div>
+            <div class="gain"><div class="g-emoji">💬</div><div><b>Behov og begær får sprog</b><p>Du kan tale om det svære – vrede, konflikter, manglende lyst – på en måde, der bringer jer tættere.</p></div></div>
+            <div class="gain"><div class="g-emoji">🏡</div><div><b>Den tantriske tjekliste</b><p>Redskaber til at bygge et parforhold med plads til både kærlighed, sex og hverdag.</p></div></div>
+            <div class="quote">“Jeg har fået fællesskab, inspiration og indlevelse i mig selv, min dybde. Jeg har også fået nysgerrighed på min lyst og mere rummelighed.”<footer>– Alexander, tidligere elev</footer></div>
+            <div class="mods">Moduler: <span>3 · Vandret og lodret</span><span>4 · Det tantriske parforhold</span></div>
+          </div>
+        </div>
+
+        <div class="panel" data-panel="3">
+          <div class="p-img"><img src="assets/img/gruppe.jpg" alt="Gruppe i fællesskab"><span class="tag">Åbning</span></div>
+          <div class="p-body">
+            <h3>Sex, kærlighed og spiritualitet arbejder sammen</h3>
+            <div class="gain"><div class="g-emoji">🔆</div><div><b>Lusten og glæden vender tilbage</b><p>Redskaber til at holde seksualiteten levende og udfolde dens potentiale.</p></div></div>
+            <div class="gain"><div class="g-emoji">🌿</div><div><b>Dit æteriske styrkes</b><p>Natur, sanser og krop blev din indgang til energi, vitalitet og dybere kontakt.</p></div></div>
+            <div class="gain"><div class="g-emoji">⚤</div><div><b>Du nærmer dig dit køn</b><p>Du bliver bedre til at kende din pol – og tiltrække relationer, der matcher den.</p></div></div>
+            <div class="quote">“Frihed til at være mig på flere niveauer.”<footer>– Nina, tidligere elev</footer></div>
+            <div class="mods">Moduler: <span>5 · Sex, kærlighed, spiritualitet</span><span>6 · Æterisk fryd</span></div>
+          </div>
+        </div>
+
+        <div class="panel" data-panel="4">
+          <div class="p-img"><img src="assets/img/gruppe.jpg" alt="Gruppe i fællesskab"><span class="tag">Mål</span></div>
+          <div class="p-body">
+            <h3>En tantrisk indstilling til livet – og et diplom</h3>
+            <div class="gain"><div class="g-emoji">⚖️</div><div><b>Du står ved dit køn</b><p>Med forståelse for polaritet og ligeværd kan du udfolde dig selv – og møde andre som ligeværdig.</p></div></div>
+            <div class="gain"><div class="g-emoji">🌱</div><div><b>Alt kan bruges som brændstof</b><p>“At tage imod det, der kommer” bliver en holdning, der bærer dig gennem kriser og overgange.</p></div></div>
+            <div class="gain"><div class="g-emoji">🎓</div><div><b>Et diplom</b><p>Der dokumenterer den tantriske viden, du nu kan formidle autentisk – fordi du selv har været igennem den.</p></div></div>
+            <div class="quote">“Jeg har fået mere accept af mig selv. Forståelse af, hvad energiudveksling er. Og forståelse for, hvad det er at være bevidst.”<footer>– Mogens, tidligere elev</footer></div>
+            <div class="mods">Moduler: <span>7 · Polaritet og ligeværd</span><span>8 · En tantrisk indstilling</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result">
+      <div class="rtext">
+        <h3>Efter <span>ét år</span> er du ikke den samme</h3>
+        <p>Du har gennemgået din egen proces, står med en værktøjskasse til livet og arbejdet – og et diplom, der viser, hvad du kan.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>8</b><span>moduler</span></div>
+        <div class="stat"><b>5</b><span>undervisere</span></div>
+        <div class="stat"><b>1</b><span>år</span></div>
+        <div class="stat"><b>1</b><span>diplom</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="after">
+  <h3>Vil du mærke, hvordan det føles?</h3>
+  <p>Kom til et kombineret workshop- og infomøde – og få smagsprøver på metoderne, før du tilmelder dig.</p>
+  <a href="#" class="btn">Se datoer for infomøder</a>
+</div>
+
+<footer class="foot">TantraUddannelsen for Polaritet og Ligeværd · demoside – ikke den rigtige hjemmeside</footer>
+
+<script>
+  var PASS = "tantra2027";
+  var gate = document.getElementById('gate');
+  if (sessionStorage.getItem('dfd-auth') === '1') { gate.style.display = 'none'; }
+  document.getElementById('gateForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = document.getElementById('gatePass').value.toLowerCase().trim();
+    if (v === PASS) { sessionStorage.setItem('dfd-auth','1'); gate.style.display = 'none'; }
+    else { document.getElementById('gateErr').textContent = 'Forkert adgangskode – prøv igen.'; }
+  });
+
+  var steps = document.querySelectorAll('.step');
+  steps.forEach(function(step){
+    step.addEventListener('click', function(){
+      steps.forEach(function(s){ s.classList.remove('active'); });
+      step.classList.add('active');
+      var key = step.dataset.step;
+      document.querySelectorAll('.panel').forEach(function(p){
+        p.classList.toggle('active', p.dataset.panel === key);
+      });
+    });
+  });
+</script>
+</body>
+</html>
